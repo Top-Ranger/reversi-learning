@@ -4,9 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core
-
-QT       -= gui
+QT       += core gui
 
 TARGET = reversi-learning
 CONFIG   += console
@@ -49,7 +47,9 @@ SOURCES += main.cpp \
     reversi/player/rules/greedyrule.cpp \
     reversi/player/rules/fewerfrontierdiscsrule.cpp \
     reversi/player/rules/endgamerule.cpp \
-    reversi/player/rules/cornerrule.cpp
+    reversi/player/rules/cornerrule.cpp \
+    getscore.cpp \
+    gene.cpp
 
 HEADERS += \
     reversi/core/gamemaster.h \
@@ -85,7 +85,9 @@ HEADERS += \
     reversi/player/rules/greedyrule.h \
     reversi/player/rules/fewerfrontierdiscsrule.h \
     reversi/player/rules/endgamerule.h \
-    reversi/player/rules/cornerrule.h
+    reversi/player/rules/cornerrule.h \
+    getscore.h \
+    gene.h
 
 OTHER_FILES += \
     reversi/player/NeuralNetworkAIPlayer/inputToHidden.txt \

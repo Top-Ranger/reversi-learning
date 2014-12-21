@@ -34,8 +34,8 @@
 #include <QTextStream>
 #include "neuralnetworkaiplayer.h"
 
-const char *NeuralNetworkAIPlayer::_pathInputToHidden = ":NeuralNetworkAIPlayer/inputToHidden.txt";
-const char *NeuralNetworkAIPlayer::_pathHiddenToOutput = ":NeuralNetworkAIPlayer/hiddenToOutput.txt";
+const char *NeuralNetworkAIPlayer::_pathInputToHidden = "./inputToHidden.txt";
+const char *NeuralNetworkAIPlayer::_pathHiddenToOutput = "./hiddenToOutput.txt";
 
 NeuralNetworkAIPlayer::NeuralNetworkAIPlayer(QObject *parent) :
     Player(parent),
@@ -111,7 +111,6 @@ void NeuralNetworkAIPlayer::doTurn(Gameboard board, int player)
     }
     if(turn_save != -1)
     {
-        qWarning() << max;
         emit turn(turn_save%8, turn_save/8);
     }
     else
