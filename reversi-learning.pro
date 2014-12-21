@@ -91,7 +91,9 @@ HEADERS += \
 
 OTHER_FILES += \
     reversi/player/NeuralNetworkAIPlayer/inputToHidden.txt \
-    reversi/player/NeuralNetworkAIPlayer/hiddenToOutput.txt
+    reversi/player/NeuralNetworkAIPlayer/hiddenToOutput.txt \
+    LICENSE.txt \
+    README.md
 
 RESOURCES += \
     reversi/player/NeuralNetworkAIPlayer/NNData.qrc
