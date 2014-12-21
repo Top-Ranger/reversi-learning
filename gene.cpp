@@ -85,9 +85,9 @@ void Gene::saveScore(int score)
     _score = score;
 }
 
-void Gene::saveFiles()
+void Gene::saveFiles(QString inputToHiddenPath, QString hiddenToOutputPath)
 {
-    QFile ith("./inputToHidden.txt");
+    QFile ith(inputToHiddenPath);
     ith.open(QIODevice::WriteOnly|QIODevice::Truncate);
     QTextStream ithStream(&ith);
     for(int i = 0; i < _sizeHidden*128; ++i)
@@ -97,7 +97,7 @@ void Gene::saveFiles()
     }
     ith.close();
 
-    QFile hto("./hiddenToOutput.txt");
+    QFile hto(hiddenToOutputPath);
     hto.open(QIODevice::WriteOnly|QIODevice::Truncate);
     QTextStream htoStream(&hto);
     for(int i = 0; i < _sizeHidden*64; ++i)

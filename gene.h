@@ -31,6 +31,7 @@
 #define GENE_H
 
 #include <QList>
+#include <QString>
 
 class Gene
 {
@@ -38,7 +39,7 @@ public:
     Gene(float mutationRate);
     void mutate();
     void saveScore(int score);
-    void saveFiles();
+    void saveFiles(QString inputToHiddenPath = "./inputToHidden.txt", QString hiddenToOutputPath = "./hiddenToOutput.txt");
     bool operator<(const Gene &other) const;
     int getScore();
 

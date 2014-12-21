@@ -101,6 +101,7 @@ int main(int argc, char *argv[])
         }
 
         qDebug() << "++++++++++\nBest score: " << currentPopulation[0].getScore() << "\n++++++++++\n";
+        currentPopulation[0].saveFiles("./inputToHidden.endOfRound.txt", "./hiddenToOutput.endOfRound.txt");
     }
 
     currentPopulation[0].saveFiles();
