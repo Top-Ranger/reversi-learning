@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
             qDebug() << "\tGene " << testnr;
             int score = 0;
             newPopulation[testnr].saveFiles();
-#pragma omp parallel for private(calc) reduction(+:score)
+#pragma omp parallel for schedule(dynamic) private(calc) reduction(+:score)
             for(int test = 0; test < scenatios.size(); ++test)
             {
                 calc.startTest(scenatios[test].player1, scenatios[test].player2,scenatios[test].player);
