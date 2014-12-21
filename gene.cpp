@@ -51,7 +51,6 @@ Gene::Gene(float mutationRate):
     _mutationRate(mutationRate),
     _score(0)
 {
-    qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
     for(int i = 0; i < 128*_sizeHidden; ++i)
     {
         _inputToHidden.append(getRandomFloat());
