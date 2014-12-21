@@ -10,6 +10,10 @@ TARGET = reversi-learning
 CONFIG   += console
 CONFIG   -= app_bundle
 
+# OpenMP
+QMAKE_CXXFLAGS += -fopenmp
+LIBS += -fopenmp
+
 TEMPLATE = app
 
 

@@ -34,13 +34,14 @@
 #include <QtAlgorithms>
 #include "getscore.h"
 #include "gene.h"
+#include "omp.h"
 
 // Parameters of learning
-int rounds = 40;
-int population = 20;
-int children = 20;
+int rounds = 100;
+int population = 32;
+int children = 32;
 int mutationRate = 0.1;
-int redoTests = 3;
+int redoTests = 5;
 
 struct TestScenario {
     QString player1;
@@ -53,6 +54,8 @@ QList<TestScenario> getScenarios();
 int main(int argc, char *argv[])
 {
     qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
+
+    omp_set_num_threads(omp_get_num_procs()*2);
 
     QList<Gene> currentPopulation;
     QList<TestScenario> scenatios = getScenarios();
@@ -80,6 +83,7 @@ int main(int argc, char *argv[])
             qDebug() << "\tGene " << testnr;
             int score = 0;
             newPopulation[testnr].saveFiles();
+#pragma omp parallel for private(calc) reduction(+:score)
             for(int test = 0; test < scenatios.size(); ++test)
             {
                 calc.startTest(scenatios[test].player1, scenatios[test].player2,scenatios[test].player);
