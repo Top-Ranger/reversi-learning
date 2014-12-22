@@ -37,7 +37,7 @@
 #include "omp.h"
 
 // Parameters of learning
-int rounds = 100;
+int rounds = 1000000;
 int population = 32;
 int children = 32;
 int mutationRate = 0.1;
