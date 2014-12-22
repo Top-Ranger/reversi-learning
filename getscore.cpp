@@ -61,20 +61,16 @@ void GetScore::result(int player1, int player2)
     _score = 0;
     if(_player == 1)
     {
-        _score += player1;
-        _score -= player2;
         if(player1>player2)
         {
-            _score *= 2;
+            _score += player1;
         }
     }
     else
     {
-        _score += player2;
-        _score -= player1;
         if(player2>player1)
         {
-            _score *= 2;
+            _score += player2;
         }
     }
     _finished = true;

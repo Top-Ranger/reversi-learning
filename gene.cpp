@@ -46,18 +46,23 @@ float getRandomChancet()
 }
 
 Gene::Gene(float mutationRate):
-    _inputToHidden(),
-    _hiddenToOutput(),
+    _inputToHidden1(),
+    _hidden1ToHidden2(),
+    _hidden2ToOutput(),
     _mutationRate(mutationRate),
     _score(0)
 {
     for(int i = 0; i < 128*_sizeHidden; ++i)
     {
-        _inputToHidden.append(getRandomFloat());
+        _inputToHidden1.append(getRandomFloat());
+    }
+    for(int i = 0; i < _sizeHidden*_sizeHidden; ++i)
+    {
+        _hidden1ToHidden2.append(getRandomFloat());
     }
     for(int i = 0; i < 64*_sizeHidden; ++i)
     {
-        _hiddenToOutput.append(getRandomFloat());
+        _hidden2ToOutput.append(getRandomFloat());
     }
 }
 
@@ -67,14 +72,21 @@ void Gene::mutate()
     {
         if(getRandomChancet() < _mutationRate)
         {
-            _inputToHidden[i] = getRandomFloat();
+            _inputToHidden1[i] = getRandomFloat();
+        }
+    }
+    for(int i = 0; i < _sizeHidden*_sizeHidden; ++i)
+    {
+        if(getRandomChancet() < _mutationRate)
+        {
+            _hidden1ToHidden2[i] = getRandomFloat();
         }
     }
     for(int i = 0; i < 64*_sizeHidden; ++i)
     {
         if(getRandomChancet() < _mutationRate)
         {
-            _hiddenToOutput[i] = getRandomFloat();
+            _hidden2ToOutput[i] = getRandomFloat();
         }
     }
 }
@@ -85,24 +97,34 @@ void Gene::saveScore(int score)
     _score = score;
 }
 
-void Gene::saveFiles(QString inputToHiddenPath, QString hiddenToOutputPath)
+void Gene::saveFiles(QString inputToHiddenPath, QString hiddenToHiddenPath, QString hiddenToOutputPath)
 {
-    QFile ith(inputToHiddenPath);
-    ith.open(QIODevice::WriteOnly|QIODevice::Truncate);
-    QTextStream ithStream(&ith);
+    QFile ith1(inputToHiddenPath);
+    ith1.open(QIODevice::WriteOnly|QIODevice::Truncate);
+    QTextStream ith1Stream(&ith1);
     for(int i = 0; i < _sizeHidden*128; ++i)
     {
-        ithStream << _inputToHidden[i];
-        ithStream << " ";
+        ith1Stream << _inputToHidden1[i];
+        ith1Stream << " ";
     }
-    ith.close();
+    ith1.close();
+
+    QFile h1th2(hiddenToHiddenPath);
+    h1th2.open(QIODevice::WriteOnly|QIODevice::Truncate);
+    QTextStream h1th2Stream(&h1th2);
+    for(int i = 0; i < _sizeHidden+_sizeHidden; ++i)
+    {
+        h1th2Stream << _hidden1ToHidden2[i];
+        h1th2Stream << " ";
+    }
+    h1th2.close();
 
     QFile hto(hiddenToOutputPath);
     hto.open(QIODevice::WriteOnly|QIODevice::Truncate);
     QTextStream htoStream(&hto);
     for(int i = 0; i < _sizeHidden*64; ++i)
     {
-        htoStream << _hiddenToOutput[i];
+        htoStream << _hidden2ToOutput[i];
         htoStream << " ";
     }
     hto.close();

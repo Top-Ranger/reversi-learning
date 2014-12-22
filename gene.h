@@ -39,13 +39,14 @@ public:
     Gene(float mutationRate);
     void mutate();
     void saveScore(int score);
-    void saveFiles(QString inputToHiddenPath = "./inputToHidden.txt", QString hiddenToOutputPath = "./hiddenToOutput.txt");
+    void saveFiles(QString inputToHiddenPath = "./inputToHidden1.txt", QString hiddenToHiddenPath = "./hidden1ToHidden2.txt" ,QString hiddenToOutputPath = "./hidden2ToOutput.txt");
     bool operator<(const Gene &other) const;
     int getScore();
 
 private:
-    QList<float> _inputToHidden;
-    QList<float> _hiddenToOutput;
+    QList<float> _inputToHidden1;
+    QList<float> _hidden1ToHidden2;
+    QList<float> _hidden2ToOutput;
     float _mutationRate;
     int _score;
 
