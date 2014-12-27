@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
     GetScore calc;
 
     qDebug() << "Initializing";
-    for(int i = 0; i < population; ++i)
+    for(int i = 1; i <= population; ++i)
     {
         qDebug() << "\tGene " << i;
         Gene g(mutationRate);
@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
         qDebug() << "Current round: " << round;
 
         QList<Gene> newPopulation = currentPopulation;
-        for(int i = 0; i < children; ++i)
+        for(int i = 1; i <= children; ++i)
         {
             qDebug() << "\tGene " << i;
             Gene children = currentPopulation[qrand()%population];
