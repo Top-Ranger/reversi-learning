@@ -40,7 +40,7 @@
 int rounds = 1000000;
 int population = 32;
 int children = 32;
-int mutationRate = 0.1;
+int mutationRate = 0.01;
 int redoTests = 5;
 
 struct TestScenario {
@@ -55,16 +55,29 @@ int main(int argc, char *argv[])
 {
     qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
 
-    omp_set_num_threads(omp_get_num_procs()*2);
-
     QList<Gene> currentPopulation;
     QList<TestScenario> scenatios = getScenarios();
     GetScore calc;
 
+    qDebug() << "Initializing";
     for(int i = 0; i < population; ++i)
     {
-        currentPopulation.append(Gene(mutationRate));
+        qDebug() << "\tGene " << i;
+        Gene g(mutationRate);
+        int score = 0;
+        g.saveFiles();
+#pragma omp parallel for schedule(dynamic) private(calc) reduction(+:score)
+        for(int test = 0; test < scenatios.size(); ++test)
+        {
+            calc.startTest(scenatios[test].player1, scenatios[test].player2,scenatios[test].player);
+            while(calc.scoreCalculated()) {qDebug() << "Waiting";}
+            score += calc.getScore();
+        }
+        g.saveScore(score);
+        currentPopulation.append(g);
+
     }
+
 
     for(int round = 1; round <= rounds; ++round)
     {
@@ -73,16 +86,12 @@ int main(int argc, char *argv[])
         QList<Gene> newPopulation = currentPopulation;
         for(int i = 0; i < children; ++i)
         {
+            qDebug() << "\tGene " << i;
             Gene children = currentPopulation[qrand()%population];
             children.mutate();
-            newPopulation.append(children);
-        }
 
-        for(int testnr=0; testnr < population+children; ++testnr)
-        {
-            qDebug() << "\tGene " << testnr;
             int score = 0;
-            newPopulation[testnr].saveFiles();
+            children.saveFiles();
 #pragma omp parallel for schedule(dynamic) private(calc) reduction(+:score)
             for(int test = 0; test < scenatios.size(); ++test)
             {
@@ -90,7 +99,10 @@ int main(int argc, char *argv[])
                 while(calc.scoreCalculated()) {qDebug() << "Waiting";}
                 score += calc.getScore();
             }
-            newPopulation[testnr].saveScore(score);
+            children.saveScore(score);
+
+
+            newPopulation.append(children);
         }
 
         currentPopulation.clear();
