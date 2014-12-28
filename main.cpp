@@ -105,12 +105,24 @@ int main(int argc, char *argv[])
             newPopulation.append(children);
         }
 
-        currentPopulation.clear();
-        qSort(newPopulation);
-        for(int i = 0; i < population; ++i)
+
+        while(newPopulation.size() > population && newPopulation.size() >= 2)
         {
-            currentPopulation.append(newPopulation[i]);
+            Gene g1 = newPopulation.takeAt(qrand()%newPopulation.size());
+            Gene g2 = newPopulation.takeAt(qrand()%newPopulation.size());
+
+            if(g1.getScore() > g2.getScore())
+            {
+                newPopulation.append(g1);
+            }
+            else
+            {
+                newPopulation.append(g2);
+            }
         }
+
+        qSort(newPopulation);
+        currentPopulation = newPopulation;
 
         qDebug() << "++++++++++\nBest score: " << currentPopulation[0].getScore() << "\n++++++++++\n";
         currentPopulation[0].saveFiles("./inputToHidden1.endOfRound.txt", "./hidden1ToHidden2.endOfRound.txt", "./hidden2ToOutput.endOfRound.txt");
