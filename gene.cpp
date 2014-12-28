@@ -112,7 +112,7 @@ void Gene::saveFiles(QString inputToHiddenPath, QString hiddenToHiddenPath, QStr
     QFile h1th2(hiddenToHiddenPath);
     h1th2.open(QIODevice::WriteOnly|QIODevice::Truncate);
     QTextStream h1th2Stream(&h1th2);
-    for(int i = 0; i < _sizeHidden+_sizeHidden; ++i)
+    for(int i = 0; i < _sizeHidden*_sizeHidden; ++i)
     {
         h1th2Stream << _hidden1ToHidden2[i];
         h1th2Stream << " ";
