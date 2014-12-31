@@ -41,7 +41,7 @@ int rounds = 1000000;
 int population = 32;
 int children = 32;
 int mutationRate = 0.01;
-int redoTests = 5;
+int redoTests = 16;
 
 struct TestScenario {
     QString player1;
