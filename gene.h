@@ -50,7 +50,7 @@ private:
     float _mutationRate;
     int _score;
 
-    static const int _sizeHidden = 64;
+    static const int _sizeHidden = 16;
 };
 
 #endif // GENE_H

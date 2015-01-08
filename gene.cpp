@@ -52,7 +52,7 @@ Gene::Gene(float mutationRate):
     _mutationRate(mutationRate),
     _score(0)
 {
-    for(int i = 0; i < 128*_sizeHidden; ++i)
+    for(int i = 0; i < 129*_sizeHidden; ++i)
     {
         _inputToHidden1.append(getRandomFloat());
     }
@@ -68,7 +68,7 @@ Gene::Gene(float mutationRate):
 
 void Gene::mutate()
 {
-    for(int i = 0; i < 128*_sizeHidden; ++i)
+    for(int i = 0; i < 129*_sizeHidden; ++i)
     {
         if(getRandomChancet() < _mutationRate)
         {
@@ -102,7 +102,7 @@ void Gene::saveFiles(QString inputToHiddenPath, QString hiddenToHiddenPath, QStr
     QFile ith1(inputToHiddenPath);
     ith1.open(QIODevice::WriteOnly|QIODevice::Truncate);
     QTextStream ith1Stream(&ith1);
-    for(int i = 0; i < _sizeHidden*128; ++i)
+    for(int i = 0; i < _sizeHidden*129; ++i)
     {
         ith1Stream << _inputToHidden1[i];
         ith1Stream << " ";
