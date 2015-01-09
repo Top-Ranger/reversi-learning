@@ -36,7 +36,7 @@
 namespace {
 float getRandomFloat()
 {
-    return static_cast<float> (qrand()) / (static_cast<float> (RAND_MAX/4)) - 2.0;
+    return static_cast<float> (qrand()) / (static_cast<float> (RAND_MAX/20)) - 10.0;
 }
 
 float getRandomChancet()
@@ -56,11 +56,11 @@ Gene::Gene(float mutationRate):
     {
         _inputToHidden1.append(getRandomFloat());
     }
-    for(int i = 0; i < _sizeHidden*_sizeHidden; ++i)
+    for(int i = 0; i < _sizeHidden*(_sizeHidden+1); ++i)
     {
         _hidden1ToHidden2.append(getRandomFloat());
     }
-    for(int i = 0; i < 64*_sizeHidden; ++i)
+    for(int i = 0; i < 64*(_sizeHidden+1); ++i)
     {
         _hidden2ToOutput.append(getRandomFloat());
     }
@@ -75,14 +75,14 @@ void Gene::mutate()
             _inputToHidden1[i] = getRandomFloat();
         }
     }
-    for(int i = 0; i < _sizeHidden*_sizeHidden; ++i)
+    for(int i = 0; i < _sizeHidden*(_sizeHidden+1); ++i)
     {
         if(getRandomChancet() < _mutationRate)
         {
             _hidden1ToHidden2[i] = getRandomFloat();
         }
     }
-    for(int i = 0; i < 64*_sizeHidden; ++i)
+    for(int i = 0; i < 64*(_sizeHidden+1); ++i)
     {
         if(getRandomChancet() < _mutationRate)
         {
