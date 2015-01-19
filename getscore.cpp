@@ -63,14 +63,14 @@ void GetScore::result(int player1, int player2)
     {
         if(player1>player2)
         {
-            _score += player1;
+            _score += 1;
         }
     }
     else
     {
         if(player2>player1)
         {
-            _score += player2;
+            _score += 1;
         }
     }
     _finished = true;
