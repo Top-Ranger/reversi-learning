@@ -38,9 +38,9 @@
 
 // Parameters of learning
 int rounds = 1000000;
-int population = 32;
-int children = 32;
-int mutationRate = 0.01;
+int population = 20;
+int children = 100;
+int mutationRate = 0.05;
 int redoTests = 16;
 
 struct TestScenario {
