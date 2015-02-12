@@ -57,7 +57,6 @@ int main(int argc, char *argv[])
 
     QList<Gene> currentPopulation;
     QList<TestScenario> scenatios = getScenarios();
-    GetScore calc;
 
     qDebug() << "Initializing";
     for(int i = 1; i <= population; ++i)
@@ -66,9 +65,10 @@ int main(int argc, char *argv[])
         Gene g(mutationRate);
         int score = 0;
         g.saveFiles();
-#pragma omp parallel for schedule(dynamic) private(calc) reduction(+:score)
+#pragma omp parallel for schedule(dynamic) reduction(+:score)
         for(int test = 0; test < scenatios.size(); ++test)
         {
+            GetScore calc;
             calc.startTest(scenatios[test].player1, scenatios[test].player2,scenatios[test].player);
             while(calc.scoreCalculated()) {qDebug() << "Waiting";}
             score += calc.getScore();
@@ -92,9 +92,10 @@ int main(int argc, char *argv[])
 
             int score = 0;
             children.saveFiles();
-#pragma omp parallel for schedule(dynamic) private(calc) reduction(+:score)
+#pragma omp parallel for schedule(dynamic) reduction(+:score)
             for(int test = 0; test < scenatios.size(); ++test)
             {
+                GetScore calc;
                 calc.startTest(scenatios[test].player1, scenatios[test].player2,scenatios[test].player);
                 while(calc.scoreCalculated()) {qDebug() << "Waiting";}
                 score += calc.getScore();

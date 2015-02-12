@@ -42,6 +42,7 @@ GetScore::GetScore(QObject *parent) :
 void GetScore::startTest(QString player1, QString player2, int player)
 {
     _score = 0;
+    _player = player;
     _master.initialise(player1, player2, 0);
     _master.startGame();
     _finished = false;
@@ -64,14 +65,14 @@ void GetScore::result(int player1, int player2)
     {
         if(player1>player2)
         {
-            _score += 1;
+            _score = 1;
         }
     }
     else
     {
         if(player2>player1)
         {
-            _score += 1;
+            _score = 1;
         }
     }
     _finished = true;
