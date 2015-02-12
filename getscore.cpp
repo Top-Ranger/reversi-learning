@@ -28,6 +28,7 @@
 */
 
 #include "getscore.h"
+#include <QDebug>
 
 GetScore::GetScore(QObject *parent) :
     QObject(parent),
@@ -43,7 +44,10 @@ void GetScore::startTest(QString player1, QString player2, int player)
 {
     _score = 0;
     _player = player;
-    _master.initialise(player1, player2, 0);
+    if(!_master.initialise(player1, player2, 0))
+    {
+        qFatal(QString("FATAL ERROR in %1 %2: Can not initialise gamemaster!\n\tplayer1: %3\n\tplayer2: %4").arg(__FILE__).arg(__LINE__).arg(player1).arg(player2).toAscii());
+    }
     _master.startGame();
     _finished = false;
 }
@@ -68,12 +72,16 @@ void GetScore::result(int player1, int player2)
             _score = 1;
         }
     }
-    else
+    else if(_player == 2)
     {
         if(player2>player1)
         {
             _score = 1;
         }
+    }
+    else
+    {
+        qFatal(QString("FATAL ERROR in %1 %2: Player %3 not valid").arg(__FILE__).arg(__LINE__).arg(_player).toAscii());
     }
     _finished = true;
 }

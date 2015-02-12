@@ -36,7 +36,7 @@
 namespace {
 float getRandomFloat()
 {
-    return static_cast<float> (qrand()) / (static_cast<float> (RAND_MAX/4)) - 2.0;
+    return static_cast<float> (qrand()) / (static_cast<float> (RAND_MAX/2.0)) - 1.0;
 }
 
 float getRandomChancet()
