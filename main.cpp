@@ -38,7 +38,7 @@
 
 // Parameters of learning
 int rounds = 1000000;
-int population = 20;
+int population = 100;
 int children = 100;
 int mutationRate = 0.05;
 int redoTests = 16;
