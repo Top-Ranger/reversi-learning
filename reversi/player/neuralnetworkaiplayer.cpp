@@ -183,7 +183,6 @@ void NeuralNetworkAIPlayer::doTurn(Gameboard board, int player)
     }
     if(turn_save != -1)
     {
-        qWarning() << max;
         emit turn(turn_save%8, turn_save/8);
     }
     else
