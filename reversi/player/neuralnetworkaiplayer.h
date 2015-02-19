@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2014 Marcus Soll
+  Copyright (C) 2014,2015 Marcus Soll
   All rights reserved.
 
   You may use this file under the terms of BSD license as follows:
@@ -48,7 +48,7 @@ private:
     static const char *_pathInputToHidden1;
     static const char *_pathHidden1ToHidden2;
     static const char *_pathHidden2ToOutput;
-    static const float random_fachtor = 1.1;
+    static const float random_fachtor = 1.5;
 
     static const int _hiddenSize = 16;
 
